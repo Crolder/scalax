@@ -50,6 +50,13 @@ class ExpiringCacheSpec extends Specification {
       cache.remove(0)
       cache.get(0) must beNone
     }
+
+    "override previous value if put with existing key" in new ExpiringCacheScope {
+      cache.put(0, "1")
+      cache.get(0) must beSome("1")
+      cache.put(0, "2")
+      cache.get(0) must beSome("2")
+    }
   }
 
   class ExpiringCacheScope extends Scope {
